@@ -11,11 +11,12 @@ password = os.getenv("PASSWORD")
 def index():
     if request.method == "POST":
         return render_template("index.html", data = "data")
-
+    username = ""
     try:
         #Init API 
-        api = init_garmin_api(email, password)
-        username = api.get_full_name()
+        # api = init_garmin_api(email, password)
+        # username = api.get_full_name()
+        pass
     except Exception as e:
         error_message = handle_error(e)
         return render_template("error.html", message=error_message)
