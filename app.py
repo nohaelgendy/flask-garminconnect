@@ -14,9 +14,8 @@ def index():
 
     try:
         #Init API 
-        # api = init_garmin_api(email, password)
-        # username = api.get_full_name()
-        username = ""
+        api = init_garmin_api(email, password)
+        username = api.get_full_name()
     except Exception as e:
         error_message = handle_error(e)
         return render_template("error.html", message=error_message)
@@ -38,7 +37,6 @@ def handle_error(e):
         return "Garmin Connect Server is not responding. Please try again later."
     else:
         return "An unknown error occurred. Please try again later."
-
 
 @app.route("/error")
 def error():
