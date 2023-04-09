@@ -39,7 +39,7 @@ def init_garmin_api(email, password):
 def my_steps_function(date):
     date = datetime.datetime.strptime(date, '%Y-%m-%d') #convert str to datetime
     steps_data = api.get_steps_data(date.isoformat())
-    stepGoal = 5310
+    stepGoal = 5310 #TODO: get this value from the api!
     if steps_data:
         stepstotal = sum([i['steps'] for i in steps_data])
         stepsPer = str(int((stepstotal/stepGoal)*100)) + "%"
@@ -53,6 +53,39 @@ def my_steps_function(date):
                  }
     return jsonify(steps_dict)
 
+# SLEEP 
+@app.route('/my-sleep-route/<date>')
+def my_sleep_function(date):
+    date = datetime.datetime.strptime(date, '%Y-%m-%d') #convert str to datetime
+    sleep = api.get_sleep_data(date.isoformat())
+    sleep = sleep['dailySleepDTO']
+        
+    sleepTotal = sleepStart = sleepEnd = 0
+    if sleep['sleepTimeSeconds']:
+        sleepTotal = sleep['sleepTimeSeconds']
+        hours, remainder = divmod(sleepTotal, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        sleepTotal = f"{hours:02d}:{minutes:02d}" + " hrs"
+        sleepStart = get_time(sleep['sleepStartTimestampLocal'])
+        sleepEnd = get_time(sleep['sleepEndTimestampLocal'])
+        
+    sleep_dict = {'sleepTotal': sleepTotal,
+                  'sleepStart': sleepStart, 
+                  'sleepEnd': sleepEnd}
+    return jsonify(sleep_dict)
+
+def get_time(timestamp):
+    """
+    Function to convet timestamp into time
+    """
+    # Convert timestamp to datetime object
+    timestamp = timestamp / 1000  # Convert milliseconds to seconds
+    dt_obj = datetime.datetime.fromtimestamp(timestamp)
+
+    # Extract time from datetime object
+    time_obj = dt_obj.time().strftime("%I:%M %p")
+    return time_obj
+    
 def handle_error(e):
     if "401" in str(e):
         return "Invalid email or password."

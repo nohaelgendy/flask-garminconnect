@@ -3,7 +3,7 @@
 {% block body %}
 <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
+        <div class="card h-100">
             <div class="card-header">DEVICE</div>
             <div class="card-body">
                 <h4 class="card-title">vívoactive 3</h4>
@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
+        <div class="card h-100">
             <div class="card-header">STEPS</div>
                 <div class="card-body">
                     <h4 class="card-title" id="dateLabel_steps">Today</h4>
@@ -33,10 +33,21 @@
         </div>
     </div>
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
+        <div class="card h-100">
             <div class="card-header">SLEEP</div>
             <div class="card-body">
-                Sleep body
+                <h4 class="card-title" id="dateLabel_sleep">Today</h4>
+                <p class="card-text">
+                    Total sleep: <span id="sleepTotal"></span>
+                    <br>
+                    Bed Time: <span id="sleepStart"></span>
+                    <br>
+                    Wake Time: <span id="sleepEnd"></span>
+                </p>
+            </div>
+            <div class="card-footer text-center">
+                <button id="prevBtn_sleep" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i></button>
+                <button id="nextBtn_sleep" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-right"></i> </button>
             </div>
         </div>
     </div>
