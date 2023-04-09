@@ -1,6 +1,6 @@
-const today = new Date();
 $(document).ready(function() 
  {
+  const today = new Date();
     //Set Date Label (Value + Text) with Today date
     setDateLabel('#dateLabel_steps', today);
     setDateLabel('#dateLabel_sleep', today);
@@ -8,7 +8,6 @@ $(document).ready(function()
     //initialize Data
     getSteps(today);
     getSleep(today);
-});
 
 //Steps
 $('#prevBtn_steps').click(function() {
@@ -37,27 +36,10 @@ $('#prevBtn_sleep').click(function() {
     setDateLabel('#dateLabel_sleep', date);
     getSleep(date);
   });
-
-//Make ajax call to flask route to get steps data 
-function getSteps(date){
-    date = date.toISOString().slice(0, 10);
-    $.ajax({
-        url: '/my-steps-route/' + date,
-        type: 'GET',
-        success: function(response) {
-          // Do something with the response from Flask
-          //Update Steps Data Labels
-          $('#stepsTotal').text(response.stepstotal);
-          $('#stepGoal').text(response.stepGoal);
-          $('#stepsPer').text(response.stepsPer);
-          $('#stepsPer').width(response.stepsPer);
-        },
-        error: function(error) {
-          console.log(error);
-        }
-      });
-}
-
+  
+  function getSteps(date) {
+    makeAjaxCall('/my-steps-route/' + getDateString(date), updateStepsData);
+  }
   function getSleep(date) {
     makeAjaxCall('/my-sleep-route/' + getDateString(date), updateSleepData);
   }
@@ -68,6 +50,11 @@ function getSteps(date){
       success: successFunc,
       error: errorFunc,
     });
+  }
+  function updateStepsData(response) {
+    $('#stepsTotal').text(response.stepstotal);
+    $('#stepGoal').text(response.stepGoal);
+    $('#stepsPer').text(response.stepsPer).width(response.stepsPer);
   }
   function updateSleepData(response) {
     $('#sleepTotal').text(response.sleepTotal);
@@ -95,3 +82,4 @@ function setDateLabel(id, date) {
       $('#nextBtn_sleep').prop('disabled', false);
     }
   }
+});
