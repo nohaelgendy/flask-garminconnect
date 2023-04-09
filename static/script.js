@@ -1,5 +1,4 @@
-var today = new Date(); // Get today's date
-
+const today = new Date();
 $(document).ready(function() 
  {
     //Set Date Label (Value + Text) with Today date
@@ -59,23 +58,24 @@ function getSteps(date){
       });
 }
 
-//get sleep
-function getSleep(date){
-    date = date.toISOString().slice(0, 10);
+  function getSleep(date) {
+    makeAjaxCall('/my-sleep-route/' + getDateString(date), updateSleepData);
+  }
+  function makeAjaxCall(url, successFunc, errorFunc = console.log) {
     $.ajax({
-        url: '/my-sleep-route/' + date,
-        type: 'GET',
-        success: function(response) {
-          // Do something with the response from Flask
-          //Update Sleep Data Labels
-          $('#sleepTotal').text(response.sleepTotal);
-          $('#sleepStart').text(response.sleepStart);
-          $('#sleepEnd').text(response.sleepEnd);
-        },
-        error: function(error) {
-          console.log(error);
-        }
-      });
+      url: url,
+      type: 'GET',
+      success: successFunc,
+      error: errorFunc,
+    });
+  }
+  function updateSleepData(response) {
+    $('#sleepTotal').text(response.sleepTotal);
+    $('#sleepStart').text(response.sleepStart);
+    $('#sleepEnd').text(response.sleepEnd);
+  }
+  function getDateString(date) {
+    return date.toISOString().slice(0, 10);
   }
 
 //Set Date Label value & text to specific date 
