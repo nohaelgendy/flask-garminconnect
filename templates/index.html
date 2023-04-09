@@ -15,9 +15,21 @@
     <div class="col-12 col-md-6 col-lg-4">
         <div class="card">
             <div class="card-header">STEPS</div>
-            <div class="card-body">
-                steps body
-            </div>
+                <div class="card-body">
+                    <h4 class="card-title" id="dateLabel_steps">Today</h4>
+                    <p class="card-text">
+                        Steps: <b id="stepsTotal"></b>
+                        <br>
+                        Daily Goal: <b id="stepGoal">{{stepGoal}}</b>
+                    </p>
+                    <div class="progress">
+                        <div class="progress-bar" id="stepsPer"> {{stepsPer}} </div>
+                      </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button id="prevBtn_steps" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i></button>
+                    <button id="nextBtn_steps" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-right"></i> </button>
+                </div>
         </div>
     </div>
     <div class="col-12 col-md-6 col-lg-4">
