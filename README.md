@@ -4,9 +4,9 @@ This is an example flask web framework app that are using Python 3 API wrapper f
 
 ## Resources
 
-https://connect.garmin.com/
-https://pypi.org/project/garminconnect/
-https://github.com/cyberjunky/python-garminconnect
+1. https://connect.garmin.com/
+2. https://pypi.org/project/garminconnect/
+3. https://github.com/cyberjunky/python-garminconnect
 
 
 ## Setup
